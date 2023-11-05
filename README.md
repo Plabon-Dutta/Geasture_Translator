@@ -39,6 +39,7 @@ American sign language is a predominant sign language Since the only disability 
 
 
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/fa31ad8c-2f39-4f08-880e-ee1f00a5b481)
+
 Figure 1: Hand Signs
 
 
@@ -108,6 +109,7 @@ Data pre-processing and Feature extraction:
 In this approach for hand detection, firstly we detect hand from image that is acquired by webcam and for detecting a hand we used media pipe library which is used for image processing. So, after finding the hand from image we get the region of interest (Roi) then we cropped that image and convert the image to gray image using OpenCV library after we applied the gaussian blur. The filter can be easily applied using the open computer vision library also known as OpenCV. Then we converted the gray image to binary image using threshold and Adaptive threshold methods. We have collected images of different signs of different angles for sign letter A to Z.
 
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/2035d73d-4f90-4464-8e91-55e327d39531)
+
 Figure 3: Gray Scaling
 
 In this method there are many loopholes like your hand must be ahead of clean, soft background and that is in proper lightning condition then only this method will give good accurate results but in real world we do not get good background everywhere and we do not get good lightning conditions too.
@@ -116,12 +118,14 @@ So, to overcome this situation we try different approaches then we reached at on
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/83d5264d-29b8-4d27-a3ef-a35b7b60ccd8)
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/7a1a1b1f-49e6-4844-8c1c-f3a4fb8df040) ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/13b011ae-7b54-4467-9a38-adc16abe3365)
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/8365dc97-247a-4433-895a-6712ef2aefa9)
+
 Figure 4: Hand Landmark
 
 Now we get these landmark points and draw it in plain white background using OpenCV library. By doing this we tackle the situation of background and lightning conditions because the mediapipe library will give us landmark points in any background and mostly in any lightning conditions. We have collected 180 skeleton images of Alphabets from A to Z.
 
 
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/8a3cb90a-8f02-4dbf-b223-ce8af683c52c) ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/89511990-7c0a-487a-93c6-7d7f561febe5) ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/12423afe-3a5f-4a5f-ba18-333c877a88fc)
+
 Figure 5: Hand Landmark Processing
 
 6. Methodology:
@@ -236,7 +240,8 @@ We have achieved an accuracy of 95.8% in our model using only layer one of our a
 uses any background subtraction algorithm while some of the models present above do that. So, once we try to implement background subtraction in our project the accuracies may vary. On the other hand, most of the above projects use Kinect devices but our main aim was to create a project which can be used with readily available resources. A sensor like Kinect not only is not readily available but also is expensive for most of the audience to buy and our model uses a normal webcam of the laptop hence it is a great plus point.
 
 
-![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/89574add-5997-48c4-9692-b5e43fb7dce7)
+![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/2e97975e-a26e-438d-954c-0714ca91c864)
+
 Figure 6: Final Project Output
 
 10. Conclusion & Future work: 
