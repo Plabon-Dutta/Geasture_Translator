@@ -34,6 +34,8 @@ The different approaches to acquire data about the hand gesture can be done in t
 4. Problem Statement:
 
 American sign language is a predominant sign language Since the only disability D&M people have been communication related and they cannot use spoken languages hence the only way for them to communicate is through sign language. Communication is the process of exchange of thoughts and messages in many ways such as speech, signals, behavior, and visuals. Deaf and dumb(D&M) people make use of their hands to express different gestures to express their ideas with other people. Gestures are the nonverbally exchanged messages and these gestures are understood with vision. This nonverbal communication of deaf and dumb people is called sign language. In our project we focus on producing a model which can recognize Fingerspelling based hand gestures to form a complete word by combining each gesture. The gestures we aim to train are as given in the image below.
+
+
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/fa31ad8c-2f39-4f08-880e-ee1f00a5b481)
 Figure 1: Hand Signs
 
@@ -77,8 +79,11 @@ There are two types of requirements in our project.
 Basic Requirement’s:
 
 1. Hardware Requirement:
+   
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/4168ccb0-fa23-4799-a2fb-41eeac1d38ab)
-2. Software Requirements:
+
+
+3. Software Requirements:
 
 Platform: 
 1.	Operating System: Windows 8 and Above 2. 
@@ -93,21 +98,27 @@ Technical Requirement’s:
 Data Acquisition:
 The different approaches to acquire data about the hand gesture can be done in the following ways:
 It uses electromechanical devices to provide exact hand configuration and position. Different glove-based approaches can be used to extract information. But it is expensive and not user friendly.
-In vision-based methods, the computer webcam is the input device for observing the information of hands and/or fingers. The Vision Based methods require only a camera, thus realizing a natural interaction between humans and computers without the use of any extra devices, thereby reducing costs. The main challenge of vision-based hand detection ranges from coping with the large variability of the human hand’s appearance due to an enormous number of hand movements, to different skin-color possibilities as well as to the variations in viewpoints, scales, and speed of the camera capturing the scene. 
+In vision-based methods, the computer webcam is the input device for observing the information of hands and/or fingers. The Vision Based methods require only a camera, thus realizing a natural interaction between humans and computers without the use of any extra devices, thereby reducing costs. The main challenge of vision-based hand detection ranges from coping with the large variability of the human hand’s appearance due to an enormous number of hand movements, to different skin-color possibilities as well as to the variations in viewpoints, scales, and speed of the camera capturing the scene.
+
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/58ee1e80-0dbc-4372-b843-1ab41975db55)
+
 Data pre-processing and Feature extraction:
 In this approach for hand detection, firstly we detect hand from image that is acquired by webcam and for detecting a hand we used media pipe library which is used for image processing. So, after finding the hand from image we get the region of interest (Roi) then we cropped that image and convert the image to gray image using OpenCV library after we applied the gaussian blur. The filter can be easily applied using the open computer vision library also known as OpenCV. Then we converted the gray image to binary image using threshold and Adaptive threshold methods. We have collected images of different signs of different angles for sign letter A to Z.
+
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/2035d73d-4f90-4464-8e91-55e327d39531)
 Figure 3: Gray Scaling
 
 In this method there are many loopholes like your hand must be ahead of clean, soft background and that is in proper lightning condition then only this method will give good accurate results but in real world we do not get good background everywhere and we do not get good lightning conditions too.
 So, to overcome this situation we try different approaches then we reached at one interesting solution in which firstly we detect hand from frame using mediapipe and get the hand landmarks of hand present in that image then we draw and connect those landmarks in simple white image.
+
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/83d5264d-29b8-4d27-a3ef-a35b7b60ccd8)
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/7a1a1b1f-49e6-4844-8c1c-f3a4fb8df040) ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/13b011ae-7b54-4467-9a38-adc16abe3365)
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/8365dc97-247a-4433-895a-6712ef2aefa9)
 Figure 4: Hand Landmark
 
 Now we get these landmark points and draw it in plain white background using OpenCV library. By doing this we tackle the situation of background and lightning conditions because the mediapipe library will give us landmark points in any background and mostly in any lightning conditions. We have collected 180 skeleton images of Alphabets from A to Z.
+
+
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/8a3cb90a-8f02-4dbf-b223-ce8af683c52c) ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/89511990-7c0a-487a-93c6-7d7f561febe5) ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/12423afe-3a5f-4a5f-ba18-333c877a88fc)
 
 
