@@ -244,16 +244,38 @@ uses any background subtraction algorithm while some of the models present above
 
 Figure 6: Final Project Output
 
+Project Output:
+
+Signup Page: User Can Sign Up with his/her Details.
+
+![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/99d568e5-d8a7-4973-84c0-5a195d1ce80f)
+
+Login Page: User Can log in with his/her Credentials.
+
+![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/eabbb2c3-2660-4fe8-ad87-996c4ade6e29)
+
+Reset Password: If the user forgot his/her Password then he/she can reset the password.
+
+![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/bda865c3-ca03-41f8-8385-a3f7162d7bf5)
+
+Home Page: After Login User will be redirected to Home Page
+
+![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/84908d45-1c02-44dd-b5f8-d32a2c827741)
+
+Translate Page: If the user clicks the Translate Button, the User will be redirected to This Page. Where the User will show the sign of the Letter and That will be detected and added in the sentence. Also, Suggestions will be generated. Lastly, we can turn the text into voice by Clicking the Speak Button.
+
+![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/efbda60a-c973-47af-bd5b-da444ba3314a)
+
 10. Conclusion & Future work: 
 
 Conclusion: 
 
-In this report, a functional real time vision based American sign language recognition for D&M people have been developed for asl alphabets. We achieved final accuracy of 98.0% on our dataset. We can improve our prediction after implementing two layers of algorithms in which we verify and predict symbols which are more like each other. This way we can detect all the symbols if they are shown properly, there is no noise in the background and the lighting is adequate.
+In this report, a functional real-time vision-based American sign language recognition for D&M people has been developed for ASL alphabets. We achieved a final accuracy of 98.0% on our dataset. We can improve our prediction after implementing two layers of algorithms in which we verify and predict symbols that are more like each other. This way we can detect all the symbols if they are shown properly, there is no noise in the background and the lighting is adequate.
 
 
 Future Work:
 
-We are planning to achieve higher accuracy even in the case of complex backgrounds by trying out various background subtraction algorithms. We are also thinking of Improving the preprocessing to predict gestures in low light conditions with a higher accuracy.
+We are planning to achieve higher accuracy even in the case of complex backgrounds by trying out various background subtraction algorithms. We are also thinking of Improving the preprocessing to predict gestures in low-light conditions with a higher accuracy.
 
 
 11. Reference:
