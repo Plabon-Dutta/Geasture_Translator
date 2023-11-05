@@ -1,4 +1,6 @@
 # Geasture_Translator
+
+
 1. Abstract: 
 Sign language is one of the oldest and most natural form of language for communication, hence we have produced a real time method using neural networks for finger spelling based American sign language. Automatic human gesture recognition from camera images is an interesting topic for developing vision. We propose a convolution neural network (CNN) method to recognize hand gestures of human actions from an image captured by camera. The purpose is to recognize hand gestures of human task activities from a camera image. The position of hand and orientation are applied to obtain the training and testing data for the CNN. The hand is first passed through a filter and after the filter is applied where the hand is passed through a classifier which predicts the class of the hand gestures. Then the calibrated images are used to train CNN.
 
@@ -120,10 +122,153 @@ Now we get these landmark points and draw it in plain white background using Ope
 
 
 ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/8a3cb90a-8f02-4dbf-b223-ce8af683c52c) ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/89511990-7c0a-487a-93c6-7d7f561febe5) ![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/12423afe-3a5f-4a5f-ba18-333c877a88fc)
+Figure 5: Hand Landmark Processing
+
+6. Methodology:
+Project Developing Resource:
+
+We have designed our software model using UML. UML (Unified Modeling Language) diagram is a visual representation of a system or software project, designed to help developers and stakeholders understand and communicate various aspects of the system. UML diagrams provide a standardized set of symbols and notations to describe various elements of a system and their relationships. The several types of UML diagrams are used to represent various aspects of the system, such as structure, behavior, interactions, and architecture. UML diagrams can be used throughout the software development process, from requirements gathering and analysis to design, implementation, and testing. They can help to identify potential issues, clarify requirements, and communicate the system's design to stakeholders. UML diagrams provide a useful tool for software development teams to document and communicate the design and functionality of a system in a standardized and visual way.
+
+
+![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/633bb050-b883-4105-9e13-2705c3f65499)
+
+DFD Diagram:
+
+
+![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/95f92998-0b32-401f-9651-417fb566f040)
+
+The system is a vision-based approach. All the signs are represented with bare hands and so it eliminates the problem of using any artificial devices for interaction.
+
+Data Set Generation: 
+
+For the project we tried to find already made datasets, but we could not find datasets in the form of raw images that matched our requirements. All we could find were the datasets in the form of RGB values. Hence, we decided to create our own data set. Steps we followed to create our data set are as follows. We have decided to use Open computer vision (OpenCV) library to produce our dataset. Firstly, we are going to capture around eight hundred images of each of the symbols in ASL for training purposes and around two hundred images per symbol for testing purposes. First, we capture each frame shown by the webcam of our machine. In each frame we define a region of interest (ROI) which is denoted by a blue bound square. From this whole image we extract our ROI which is RGB and convert it into gray scale Image. Finally, we apply our gaussian blur filter to our image which helps us extract various features of our image. The image after applying gaussian blur.
+
+Gesture Classification: 
+
+Our approach uses two layers of algorithm to predict the final symbol of the user. 
+
+Algorithm Layer 1: 
+•	Apply gaussian blur filter and threshold to the frame taken with OpenCV to get the processed image after feature extraction. 
+•	This processed image is passed to the CNN model for prediction and if a letter is detected for more than fifty frames then the letter is printed and taken into consideration for forming the word. 
+•	Space between the words is considered using the blank symbol. 
+
+Algorithm Layer 2: 
+•	We detect various sets of symbols which show related results on getting detected.
+•	We then classify between those sets using classifiers made for those sets only.
+
+Layer 1: CNN Model
+-	1st Convolution Layer: The input picture has resolution of 12Sx128 pixels. It is first processed in the first convolutional layer using thirty-two filter weights (3x3 pixels each). This will result in a 126x126 pixel image, one for each Filter-weight.
+
+-	1st Pooling Layer: The pictures are downsampled using max pooling of 2x2 i.e., we keep the highest value in the 2x2 square of array- Therefore, our picture is downsampled to 63x63 Pixels.
+
+
+-	2nd Convolution Layer: Now, these 63 x 63 from the output of the first pooling layer is served as an input to the second convolutional layer. It is processed in the second convolutional layer using thirty-two filter weights (3x3 pixels each). This will result in a 60 x 60-pixel image.
+
+-	2nd Pooling Layer: The resulting Images are downsampled again using max pool of 2x2 and is reduced to 30 x 30 resolution of Images.
+
+
+-	1st Densely Connected Layer: Now these images are used as an Input to a fully connected layer with 128 neurons and the output from the second convolutional layer is reshaped to an array of 30x30x32 =2SS00 values. The input to this layer is an array of 28800 values. The output of these layers is fed to the 2nd Densely Connected Layer-We are using a dropout layer of value 0.5 to avoid overfitting.
+
+-	2nd Densely Connected Layer: Now the output from the 1st Densely Connected Layer is used as an input to a fully connected layer with ninety-six neurons.
+
+
+-	Final layer: The output of the 2nd Densely Connected Layer serves as an input for the final layer which will have the number of neurons as the number of classes we are classifying (alphabets + blank symbol).
+
+Activation Function: We have used ReLu (Rectified Linear Unit) in each of the layers (convolutional as well as fully connected neurons). ReLu calculates max(x,0) for each input pixel. This adds nonlinearity to the formula and helps to learn more complicated features. It helps in removing the vanishing gradient problem and speeding up the training by reducing the computation time.
+
+Pooling Layer: We apply Max pooling to the input image with a pool size of (2, 2) with relu activation function. This reduces the number of parameters thus lessening the computation cost and reduces overfitting.
+
+Dropout Layers: The problem of overfitting, where after training, the weights of the network
+are so tuned to the training examples they are given that the network does not perform well when given new examples. This layer "drops out" a random set of activations in that layer by setting them to zero. The network should be able to provide the right classification or output for a specific example even if some of the activations are dropped out [5].
+
+Optimizer: We have used Adam optimizer for updating the model in response to the
+output of the loss function. Adam combines the advantages of two extensions of two stochastic gradient descent algorithms namely adaptive gradient algorithm (ADA GRAD) and root mean square propagation (RMSProp).
+
+
+Layer 2:
+
+We are using two layers of algorithms to verify and predict symbols which are more like each other so that we can get as close as we can get to detect the symbol shown. In our testing we found that following symbols were not showing properly and were giving other symbols also:
+1. ForD: RandU
+2. ForU: DandR
+3. Forl: T, D, Kandl
+4. Fors: M and N
+
+So, to handle above cases we made three different classifiers for classifying these sets:
+1. {D, R, U} 
+2. {T, K, D, I} 
+3. {S, M, N}
 
 
 
+Finger spelling sentence formation Implementation:
+
+•	Whenever the count of a letter detected exceeds a specific value and no other letter is close to it by a threshold, we print the letter and add it to the current string (ln our code we kept the value as fifty and difference threshold as 20).
+
+•	Otherwise, we clear the current dictionary which has the count of detections of present symbol to avoid the probability of a wrong letter getting predicted.
 
 
+•	Whenever the count of a blank (plain background) detected exceeds a specific value and if the current buffer is empty no spaces are detected.
+
+•	In other case it predicts the end of word by printing a space and the current gets appended to the sentence below.
+
+Autocorrect Feature:
+A python library Hunspell_suggest is used to suggest connecting alternatives for each (incorrect) input word and we display a set of words matching the current word in which the user can select a word to append it to the current sentence. This helps in reducing mistakes committed in spelling and assists in predicting complex words.
+
+Training and Testing:
+
+We convert our input images (RGB) into grayscale and apply gaussian blur to remove unnecessary noise. We apply adaptive threshold to extract our hand from the background and resize our images to 128 x 128. 
+We feed the input images after preprocessing to our model for training and testing after applying all the operations mentioned above. The prediction layer estimates how likely the image will fall under one of the classes. So, the output is normalized between 0 and 1 and such that the sum of each value in each class sums to one. We have achieved this using softmax function. 
+First the output of the prediction layer will be far from the actual value. To make it better we have trained the networks using labeled data. Cross-entropy is a performance measurement used in classification. It is a continuous function which is positive at values which are not same as labeled value and is zero exactly when it is equal to the labeled value. Therefore, we optimized the cross-entropy by minimizing it as close to zero. To do this in our network layer we adjust the weights of our neural networks. TensorFlow has an inbuilt function to calculate the cross entropy. 
+As we have found out the cross-entropy function, we have optimized it using Gradient Descent in fact with the best gradient descent optimizer is called Adam Optimizer
+Software Process Model:
+
+We have used Agile Methodology for software process models. Agile process model is the best choice for blockchain-based crowdfunding platform. As it focuses on iterative development, collaboration, and flexibility. This methodology is well-suited for blockchain projects as it allows for frequent feedback and adjustments, which is necessary for developing a complex and constantly evolving technology like blockchain.
+We particularly used Scrum, which is an agile framework for managing and completing complex projects, particularly in software development. The framework is based on an iterative and incremental approach to project management, where the project is divided into smaller and more manageable parts, called sprints. The Scrum framework emphasizes flexibility, continuous improvement, and collaboration. By breaking down the project into smaller parts and regularly reviewing progress and feedback, the Scrum framework can help teams adapt to changing requirements and deliver high-quality products in a timely manner.
+
+7. Challenges Faced:
+
+There were many challenges faced by us during the project. The very first issue we faced was of dataset. We wanted to deal with raw images and those too square images like CNN in Keras as it was a lot more convenient working with only square images. We could not find any existing dataset for that hence we decided to make our own dataset. The second issue was to select a filter which we could apply on our images so that proper features of the images could be obtained and hence then we could provide that image as input for CNN model. We tried various filters including binary threshold, canny edge detection, gaussian blur etc. but finally we settled with gaussian blur filter. More issues were faced relating to the accuracy of the model we trained in earlier phases, which we eventually improved by increasing the input image size and by improving the dataset.
+
+
+8. Result of Project:
+
+We have achieved an accuracy of 95.8% in our model using only layer one of our algorithms and using the combination of layer one and layer two we achieve an accuracy of 98.0%, which is a better accuracy then most of the current research papers on American sign language. Most of the research papers focus on using devices like Kinect for hand detection. In [7] they build a recognition system for Flemish sign language using convolutional neural networks and Kinect and achieve an error rate of 2.5%. In [8] a recognition model is built using hidden Markov model classifier and a vocabulary of thirty words and they achieve an error rate of 10.90%. In [9] they achieve an average accuracy of 86% for forty-one static gestures in Japanese sign language. Using depth sensors map [10] achieved an accuracy of 99.99% for observed signers and 83.58% and 85.49% for new signers. They also used CNN for their recognition system. One thing that should be noted is that our model does not.
+uses any background subtraction algorithm while some of the models present above do that. So, once we try to implement background subtraction in our project the accuracies may vary. On the other hand, most of the above projects use Kinect devices but our main aim was to create a project which can be used with readily available resources. A sensor like Kinect not only is not readily available but also is expensive for most of the audience to buy and our model uses a normal webcam of the laptop hence it is a great plus point.
+
+
+![image](https://github.com/Plabon-Dutta/Geasture_Translator/assets/79752960/89574add-5997-48c4-9692-b5e43fb7dce7)
+Figure 6: Final Project Output
+
+10. Conclusion & Future work: 
+
+Conclusion: 
+
+In this report, a functional real time vision based American sign language recognition for D&M people have been developed for asl alphabets. We achieved final accuracy of 98.0% on our dataset. We can improve our prediction after implementing two layers of algorithms in which we verify and predict symbols which are more like each other. This way we can detect all the symbols if they are shown properly, there is no noise in the background and the lighting is adequate.
+
+
+Future Work:
+
+We are planning to achieve higher accuracy even in the case of complex backgrounds by trying out various background subtraction algorithms. We are also thinking of Improving the preprocessing to predict gestures in low light conditions with a higher accuracy.
+
+
+11. Reference:
+
+[1] T. Yang, Y. Xu, and “A., Hidden Markov Model for Gesture Recognition”, CMU-RI-TR-94 10, Robotics Institute, Carnegie Mellon Univ., Pittsburgh, PA, May 1994. 
+
+[2] Pujan Ziaie, Thomas M ̈uller, Mary Ellen Foster, and Alois Knoll “A Na ̈ıve Bayes Munich, Dept. of Informatics VI, Robotics and Embedded Systems, Boltzmannstr. 3, DE-85748 Garching, Germany. 
+
+[3] https://docs.opencv.org/2.4/doc/tutorials/imgproc/gausian_median_blur_bilateral_filter/gausian_median_blur_bilateral_filter.html 
+
+[4] Mohammed Waleed Kalous, Machine recognition of Auslan signs using PowerGloves: Towards large-lexicon recognition of sign language. 
+
+[5] aeshpande3.github.io/A-Beginner%27s-Guide-To-Understanding-Convolutional-Neural-Networks-Part-2/
+
+[6] http://www-i6.informatik.rwth-aachen.de/~dreuw/database.php 
+
+[7] Pigou L., Dieleman S., Kindermans PJ., Schrauwen B. (2015) Sign Language Recognition Using Convolutional Neural Networks. In: Agapito L., Bronstein M., Rother C. (eds) Computer Vision- ECCV 2014 Workshops. ECCV 2014. Lecture Notes in Computer Science, vol 8925. Springer, Cham 
+
+[8] Zaki, M.M., Shaheen, S.I.: Sign language recognition using a combination of new vision-based features. Pattern Recognition Letters 32(4), 572–577 (2011) 25 
+
+[9] N. Mukai, N. Harada and Y. Chang, "Japanese Fingerspelling Recognition Based on Classification Tree and Machine Learning," 2017 Nicograph International (NicoInt), Kyoto, Japan, 2017, pp. 19-24. doi:10.1109/NICOInt.2017.9
 
 
